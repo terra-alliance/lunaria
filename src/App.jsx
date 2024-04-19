@@ -4,16 +4,16 @@ import { KeyboardControls, CameraControls, PointerLockControls } from "@react-th
 import { DepthOfField, EffectComposer } from "@react-three/postprocessing"
 import { Perf } from "r3f-perf"
 import { useSetAtom } from "jotai"
-import { Analytics } from "@vercel/analytics/react"
+// import { Analytics } from "@vercel/analytics/react"
 import ReactNipple from "react-nipple"
 import { Route, Routes } from "react-router-dom"
 
-import { ChainProvider } from "@cosmos-kit/react"
-import { chains, assets } from "chain-registry"
-import { wallets as station } from "@cosmos-kit/station"
-import { wallets as keplr } from "@cosmos-kit/keplr"
-import { wallets as trust } from "@cosmos-kit/trust"
-import { wallets as web3auth } from "@cosmos-kit/web3auth"
+// import { ChainProvider } from "@cosmos-kit/react"
+// import { chains, assets } from "chain-registry"
+// import { wallets as station } from "@cosmos-kit/station"
+// import { wallets as keplr } from "@cosmos-kit/keplr"
+// import { wallets as trust } from "@cosmos-kit/trust"
+// import { wallets as web3auth } from "@cosmos-kit/web3auth"
 
 import { touch, joystick, lock, html } from "@/global"
 
@@ -32,9 +32,9 @@ export function App() {
 
   return (
     <>
-      <Analytics />
+      {/* <Analytics /> */}
 
-      {crosshair && <div className='crosshair' />}
+      {crosshair && <div className="crosshair" />}
 
       <html.Out />
 
@@ -52,25 +52,25 @@ export function App() {
         />
       )}
 
-      <ChainProvider
+      {/* <ChainProvider
         chains={chains}
         assetLists={assets}
-        wallets={[...station, ...keplr, ...web3auth, ...trust]}
+        wallets={[...keplr, ...web3auth, ...trust]}
         wrappedWithChakra={true}
         walletConnectOptions={{ signClient: { projectId: "3f62067a65bd747c9b1f4b9c331b35eb" } }}
+      > */}
+      <KeyboardControls
+        map={[
+          { name: "forward", keys: ["ArrowUp", "w", "W"] },
+          { name: "backward", keys: ["ArrowDown", "s", "S"] },
+          { name: "left", keys: ["ArrowLeft", "a", "A"] },
+          { name: "right", keys: ["ArrowRight", "d", "D"] },
+          { name: "shift", keys: ["Shift"] },
+        ]}
       >
-        <KeyboardControls
-          map={[
-            { name: "forward", keys: ["ArrowUp", "w", "W"] },
-            { name: "backward", keys: ["ArrowDown", "s", "S"] },
-            { name: "left", keys: ["ArrowLeft", "a", "A"] },
-            { name: "right", keys: ["ArrowRight", "d", "D"] },
-            { name: "shift", keys: ["Shift"] },
-          ]}
-        >
-          <Scene />
-        </KeyboardControls>
-      </ChainProvider>
+        <Scene />
+      </KeyboardControls>
+      {/* </ChainProvider> */}
     </>
   )
 }
@@ -91,8 +91,8 @@ function Scene() {
 
         {touch ? <TouchControls /> : <DesktopControls />}
         <Routes>
-          <Route path='/' element={<Lunaria />} />
-          <Route path='/luncmonkeys' element={<LuncMonkeys />} />
+          <Route path="/lunaria" element={<Lunaria />} />
+          <Route path="/lunaria/luncmonkeys" element={<LuncMonkeys />} />
         </Routes>
       </Canvas>
     </>
@@ -106,14 +106,14 @@ function Performance() {
       setShow(!show)
     }
   })
-  return <>{show && <Perf position='bottom-right' />}</>
+  return <>{show && <Perf position="bottom-right" />}</>
 }
 
 function DesktopControls() {
   const ref = useRef()
   const setLock = useSetAtom(lock)
   window.addEventListener("pointerdown", () => setLock(ref.current))
-  return <PointerLockControls ref={ref} selector='#none' makeDefault />
+  return <PointerLockControls ref={ref} selector="#none" makeDefault />
 }
 
 var dif = [0, 0]
