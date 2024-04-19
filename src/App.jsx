@@ -92,7 +92,7 @@ function Scene() {
         {touch ? <TouchControls /> : <DesktopControls />}
         <Routes>
           <Route path="/lunaria" element={<Lunaria />} />
-          <Route path="/lunaria/luncmonkeys" element={<LuncMonkeys />} />
+          <Route path="/luncmonkeys" element={<LuncMonkeys />} />
         </Routes>
       </Canvas>
     </>
